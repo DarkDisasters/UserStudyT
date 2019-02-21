@@ -1,7 +1,7 @@
 <html>
 	<script src = ></script>
 
-	<body>
+	<body onload = "loadPageTime()">
 		<div id="content"></div>
 		<div id="nextbutton">
 			<button onClick="nextSlide()"> next page </button>
@@ -42,6 +42,7 @@
         <script type="text/javascript" src = "./js/functionhub.js"></script>
 
 		<script>
+			var timestart,timeend,interval
 			var g_functionhub = new FunctionHub()
 
 			var question1 = {
@@ -64,6 +65,54 @@
 
 		</script>
 
+		<script>
+			loadPageTime = function(){
+                timestart = new Date()
+            }
+
+            nextButtonTime = function(){
+                console.log("timestart", timestart)
+                timeend = new Date();
+                var intervalms = (timeend - timestart);
+                var days = Math.floor(intervalms/(24*3600*1000))
+                
+                var level1 = intervalms%(24*3600*1000)
+                var hours = Math.floor(level1/(3600*1000))
+
+                var level2 = intervalms%(3600*1000)
+                var minutes = Math.floor(level2/(60*1000))
+
+                var level3 = intervalms%(60*1000)
+                var seconds = Math.round(level3/1000)
+
+                interval = hours * 3600 + minutes*60 + seconds
+                console.log("timeend", timeend)
+                console.log("interval",interval)
+                timestart = timeend
+            }
+
+            answerSubmit = function(imgIndex){
+                nextButtonTime();
+                var self = this;
+                this._answer = $('input:radio[name="answer"]:checked').val();
+                this._question = $('#question').text()
+                this._imgname = imgIndex.toString().concat(".png")
+                var formData = new FormData()
+                formData.append('question',this._question)
+                formData.append('answer',this._answer)
+                formData.append('answerinterval',interval)
+                formData.append('imgname', this._imgname)
+                var url = "http://localhost:22030/saveanswerinfo"
+                lSendUrl("POST", url, formData, self.successSaveAnswer)
+
+            }
+
+            successSaveAnswer = function(response, self){
+                console.log("save answer ok")
+            }
+
+		</script>
+
 		<script type="text/javascript">
 
 			g_slide = 1;
@@ -74,10 +123,12 @@
 				var g_option =  document.getElementById("optionContent")
 
 				if(g_slide == 2){
-					// g_functionhub.submit()
+					g_functionhub.submit()
 				}
 
-				if(g_slide >= 4 && )
+				if(g_slide >= 4 && g_option != undefined){
+					answerSubmit(g_slide)
+				}
 
 				g_slide += 1
 
@@ -150,7 +201,7 @@
 					   '</div>' 
 			}
 			function getQuestionContent(questionText){
-				return '<div>' + questionText +
+				return '<div id = "question">' + questionText +
 					   '</div>'
 			}
 			function getOptionContent(questionInfo){
@@ -162,14 +213,14 @@
 				for (var j in lioptiongroups){
 					console.log("j", j)
 					if(j == 0){
-						var input = '<input type = "radio" name =  ' + questionname +
+						var input = '<input type = "radio" name = "answer" ' + 
 					  	' value = " ' + lioptiongroups[j] + ' " ' +
 					  	' checked = "checked">'+lioptiongroups[j] 
 					  	optionContent = input;
 					  	console.log("1111111111111")
 					}
 					else{
-						var input = '<input type = "radio" name =  ' + questionname +
+						var input = '<input type = "radio" name =  "answer" ' +
 					  	' value = " ' + lioptiongroups[j] + ' ">'+lioptiongroups[j] 
 					  	optionContent = optionContent.concat(input);
 					  	console.log("222222222222222")

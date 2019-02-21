@@ -48,13 +48,14 @@ class SaveAnswerInfoHandler(tornado.web.RequestHandler):
         user_question = self.get_argument("question");
         user_answer = self.get_argument("answer");
         user_answerinterval = self.get_argument("answerinterval");
+        user_imgname = self.get_argument("imgname")
         # print("answer", json.loads(answerinfo))
         ssDB.saveAnswerInfo({
-            # "answerinfo": answerinfo,
+            "imgname": user_imgname,
             "question": user_question,
             "answer": user_answer,
-            "answerinterval": user_answerinterval
+            "answerinterval": user_answerinterval,
         })
-        flagFile = open('./img/'+ fileName.split('.')[0] + '.txt', "w")
+        
         self.set_header("Access-Control-Allow-Origin", "*")
         self.write({"save": "ok"})
