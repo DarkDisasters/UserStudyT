@@ -1,0 +1,186 @@
+<html>
+	<script src = ></script>
+
+	<body>
+		<div id="content"></div>
+		<div id="nextbutton">
+			<button onClick="nextSlide()"> next page </button>
+		</div>
+	</body>
+	<head>	
+		<style type="text/css">
+			#content{
+			    text-align: center;
+			    background: lightgray;
+			    height: 100%;
+			    padding: 30px;
+			}
+			#nextbutton{
+			    position: absolute;
+			    right: 5%;
+			    top: 50%;
+			}
+			#nextbutton button{
+			    font-size: 30;
+			    padding: 0 20;
+			}
+			input {
+   			 	margin: 0 20;
+			}
+			input[type=checkbox]{
+				width: 30px;
+				height: 30px;
+			}
+			.mainimg{
+				height: 80%;
+			}
+		</style>
+
+		<script type="text/javascript" src="./lib/jquery.js"></script>
+		<script src = "./js/lfunctionhub.js"></script>
+		<!-- <script type="text/javascript" src="./lib/lurlquery.js"></script> -->
+        <script type="text/javascript" src = "./js/functionhub.js"></script>
+
+		<script>
+			var g_functionhub = new FunctionHub()
+
+			var question1 = {
+				"question": "How many clusters in the scatterplot?",
+				"questionname": "clusternumber",
+				"questionnumber": 1,
+				"optiongroups": [1,2,3,4],
+			}
+
+			var question2 = {
+				"question": "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+				"questionname": "larger average",
+				"questionnumber": 2, 
+				"optiongroups": [1,2],
+			}
+
+			
+			var questionMap = {
+				4: question1, 6: question2}
+
+		</script>
+
+		<script type="text/javascript">
+
+			g_slide = 1;
+			$('#content')[0].innerHTML = getPageContent(g_slide)//'hello page#' + g_slide
+			// }
+
+			function nextSlide(){
+				var g_option =  document.getElementById("optionContent")
+
+				if(g_slide == 2){
+					// g_functionhub.submit()
+				}
+
+				if(g_slide >= 4 && )
+
+				g_slide += 1
+
+				$('#content')[0].innerHTML = getPageContent(g_slide);
+				
+				// var formData = new FormData()
+				// formData.append('slideIndex', g_slide)
+				// lSendUrl('POST', 'http://localhost:22030/slide', formData, 
+				// 	function(response){
+				// 		console.log('success get slide', response['slideIndex']);
+				// 		g_slide = response['slideIndex'];
+				// 		$('#content')[0].innerHTML = getPageContent(g_slide);
+				// })
+			}
+			function getPageContent(slideIndex){
+				switch(slideIndex){
+					case 1:  //welcome slide
+						return getTextPage('welcome : )')
+					case 2: //user info
+						return getUserInfoForm();
+						break;
+					case 3: //scatterplot welcome
+						return getTextPage('Scatter Plot')
+					case 4:
+					case 6:
+						var imgContent = getImgContent(slideIndex);
+						var questionContent = getQuestionContent(questionMap[slideIndex]["question"], 1);
+						var optionContent = getOptionContent(questionMap[slideIndex])
+						return imgContent + questionContent + optionContent;
+					default:
+						return getTextPage('Continue...')
+				}
+			}
+			function getTextPage(text){
+				return '<h1>' + text + '</h1>'
+			}
+			function getUserInfoForm(){
+				// return '<h1>Age<input id="age"></input></h1><br>' +
+				// 	   '<h1>Gender<input type="checkbox">Female</input>' + 
+				// 	   '<input type="checkbox">Male</input></h1><br>'
+				return '<form method="post" action="">' +
+                			'<table border="1" bordercolor= "steerblue" cellpadding="10px" cellspacing="0">'+
+                    			'<caption>Questionare</caption> '+
+			                 	'<tbody>'+
+			                        '<tr>'+
+			                            '<td>Age: </td>'+
+			                            '<td><input type = "text" name = "age"></input></td>'+
+			                        '</tr>'+
+			                        '<tr><td>Gender: </td><td><input type = "radio" name = "gender" value="F" checked="checked">Woman<input type = "radio" name = "gender" value = "M">Man</td></tr>'+
+			                        '<tr><td>Science/Engineering</td><td><input type = "radio" name = "studyinterest" value = "Humanities and Social sciences" checked="checked">Humanities and Social sciences<input type = "radio" name = "studyinterest" value = "Others">Others</td></tr>'+
+			                        '<tr><td>Academic Level</td><td><input type = "radio" name = "academiclevel" value = "Undergraduate" checked="checked">Undergraduate<input type = "radio" name = "academiclevel" value = "Post graduate (MSc, PhD)">Post graduate (MSc, PhD)<input type = "radio" name = "academiclevel" value = "Other">Other</td></tr>'+
+			                        '<tr>'+
+			                            '<td>Assess your experience in Data Visualization</td>'+
+			                            '<td>'+
+			                                '<input type = "radio" name = "experience" value = "None" checked="checked">None'+
+			                                '<input type = "radio" name = "experience" value = "Little">Little'+
+			                                '<input type = "radio" name = "experience" value = "Medium or pretty good">Medium or pretty good'+
+			                                '<input type = "radio" name = "experience" value = "Very good">Very good'+
+			                            '</td>'+
+			                        '</tr>'+
+			                    '</tbody>'+
+			                '</table>'+
+			                // '<input id = "submitbutton" type = "submit" name = "submit" value="submit" onclick >'+
+			            '</form>'
+			}
+			function getImgContent(imgIndex){
+				console.log('<img src=' + '"./rc/img_'+ (imgIndex) + '"' + '/>');
+				return '<div>' + 
+					   '<img class="mainimg" src=' + '"./rc/img_'+ (imgIndex) + '.png"' + '/>'
+					   '</div>' 
+			}
+			function getQuestionContent(questionText){
+				return '<div>' + questionText +
+					   '</div>'
+			}
+			function getOptionContent(questionInfo){
+				var questionname = questionInfo["questionname"]
+				var lioptiongroups = questionInfo["optiongroups"]
+				console.log("lioptiongroups", lioptiongroups)
+				var optionContent = ""
+
+				for (var j in lioptiongroups){
+					console.log("j", j)
+					if(j == 0){
+						var input = '<input type = "radio" name =  ' + questionname +
+					  	' value = " ' + lioptiongroups[j] + ' " ' +
+					  	' checked = "checked">'+lioptiongroups[j] 
+					  	optionContent = input;
+					  	console.log("1111111111111")
+					}
+					else{
+						var input = '<input type = "radio" name =  ' + questionname +
+					  	' value = " ' + lioptiongroups[j] + ' ">'+lioptiongroups[j] 
+					  	optionContent = optionContent.concat(input);
+					  	console.log("222222222222222")
+					}
+					
+				}
+				console.log("optionContent", optionContent)
+				return '<div id = "optionContent">' + optionContent + '</div>'
+			}
+		</script>
+
+		
+	</head>
+</html>
