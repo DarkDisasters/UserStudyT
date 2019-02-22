@@ -97,7 +97,12 @@
                 var level3 = intervalms%(60*1000)
                 var seconds = Math.round(level3/1000)
 
-                interval = hours * 3600 + minutes*60 + seconds
+                var level4 = intervalms%1000
+                var seconds2 = Math.round(level4/10) / 100
+
+
+
+                interval = hours * 3600 + minutes*60 + seconds + seconds2
                 console.log("timeend", timeend)
                 console.log("interval",interval)
                 timestart = timeend
