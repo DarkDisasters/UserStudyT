@@ -1,7 +1,7 @@
 <html>
 	<script src = ></script>
 
-	<body onload = "loadPageTime()">
+	<body>
 		<div id="content"></div>
 		<div id="nextbutton">
 			<button onClick="nextSlide()"> next page </button>
@@ -78,7 +78,7 @@
 		</script>
 
 		<script>
-			loadPageTime = function(){
+			loadImgTime = function(){
                 timestart = new Date()
             }
 
@@ -138,9 +138,14 @@
 
 			function nextSlide(){
 				var g_option =  document.getElementById("optionContent")
+				var questionintro = document.getElementById("questionintro")
 
 				if(g_slide == 2){
 					g_functionhub.submit()
+				}
+
+				if(g_slide >= 3 && questionintro != undefined){
+					loadImgTime()
 				}
 
 				if(g_slide >= 4 && g_option != undefined){
@@ -168,21 +173,30 @@
 						return getUserInfoForm();
 						break;
 					case 3: //scatterplot welcome
-						return getTextPage('Scatter Plot')
+					case 5:
+					case 7:
+					case 9:
+						var questionContent = questionMap[slideIndex+1]["question"]
+						return getTextPage(questionContent, true)
 					case 4:
 					case 6:
 					case 8:
 					case 10:
 						var imgContent = getImgContent(slideIndex);
-						var questionContent = getQuestionContent(questionMap[slideIndex]["question"], 1);
+						var questionContent = getQuestionContent(questionMap[slideIndex]["question"]);
 						var optionContent = getOptionContent(questionMap[slideIndex])
 						return imgContent + questionContent + optionContent;
 					default:
-						return getTextPage('Continue...')
+						return getTextPage('Continue...', false)
 				}
 			}
-			function getTextPage(text){
-				return '<h1>' + text + '</h1>'
+			function getTextPage(text,isQuestionIntro){
+				if(isQuestionIntro){
+					return '<h1 id = "questionintro">' + text + '</h1>'
+				}
+				else{
+					return '<h1>' + text + '</h1>'
+				}
 			}
 			function getUserInfoForm(){
 				// return '<h1>Age<input id="age"></input></h1><br>' +
