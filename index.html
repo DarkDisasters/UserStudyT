@@ -55,17 +55,18 @@
 					g_functionhub.submit()
 				}
 
-				if(g_slide >= 3 && questionintro != undefined){
+				if(g_slide >= 6 && questionintro != undefined){
 					loadImgTime()
 				}
 
-				if(g_slide >= 4 && g_option != undefined){
+				if(g_slide >= 7 && g_option != undefined){
 					answerSubmit(g_slide)
 				}
 
 				g_slide += 1
 
 				$('#content')[0].innerHTML = getPageContent(g_slide);
+				console.log("pagenumber", g_slide)
 				
 				// var formData = new FormData()
 				// formData.append('slideIndex', g_slide)
@@ -83,32 +84,30 @@
 					case 2: //user info
 						return getUserInfoForm();
 						break;
-					case 3: //scatterplot welcome
-					case 5:
-					case 7:
-					case 9:
-						var questionContent = questionMap[slideIndex+1]["question"]
-						return getTextPage(questionContent, true)
-					case 4:
-					case 6:
+					case 6: //scatterplot welcome
 					case 8:
 					case 10:
+					case 12:
+					case 34:
+					case 36:
+						var questionContent = questionMap[slideIndex+1]["question"]
+						return getTextPage(questionContent, true)
+					case 7:
+					case 9:
+					case 11:
+					case 13:
+					case 35:
+					case 37:
 						var imgContent = getImgContent(slideIndex);
 						var questionContent = getQuestionContent(questionMap[slideIndex]["question"]);
-						var optionContent = getOptionContent(questionMap[slideIndex])
+						var optionContent = getOptionContent(slideIndex)
+
 						return imgContent + questionContent + optionContent;
 					default:
 						return getTextPage('Continue...', false)
 				}
 			}
-			function getTextPage(text,isQuestionIntro){
-				if(isQuestionIntro){
-					return '<h1 id = "questionintro">' + text + '</h1>'
-				}
-				else{
-					return '<h1>' + text + '</h1>'
-				}
-			}
+
 			function getUserInfoForm(){
 				// return '<h1>Age<input id="age"></input></h1><br>' +
 				// 	   '<h1>Gender<input type="checkbox">Female</input>' + 
@@ -138,37 +137,108 @@
 			                // '<input id = "submitbutton" type = "submit" name = "submit" value="submit" onclick >'+
 			            '</form>'
 			}
+
+			function getTextPage(text,isQuestionIntro){
+				if(isQuestionIntro){
+					return '<h1 id = "questionintro">' + text + '</h1>'
+				}
+				else{
+					return '<h1>' + text + '</h1>'
+				}
+			}
+			
 			function getImgContent(imgIndex){
-				console.log('<img src=' + '"./rc/img_'+ (imgIndex) + '"' + '/>');
-				return '<div>' + 
-					   '<img class="mainimg" src=' + '"./rc/img_'+ (imgIndex) + '.png"' + '/>'
-					   '</div>' 
+				var g_liImg = Object.keys(imgListDict)
+				for(var i = 0; i < g_liImg.length; ++i){
+					if(imgIndex == g_liImg[i].substring(0,2))
+					{
+						return '<div>' + 
+					   '<img class="mainimg" src="' +imgListDict[g_liImg[i]] + '" />'
+					   '</div>'
+					}
+				}
+
+				console.log('<img class="mainimg" src=' + imgListDict[g_liImg[i]] + '/>');
 			}
 			function getQuestionContent(questionText){
 				return '<div id = "question">' + questionText +
 					   '</div>'
 			}
-			function getOptionContent(questionInfo){
-				var questionname = questionInfo["questionname"]
-				var lioptiongroups = questionInfo["optiongroups"]
-				console.log("lioptiongroups", lioptiongroups)
-				var optionContent = ""
 
-				for (var j in lioptiongroups){
+			function getOptionContent2(){
+
+			}
+
+			function getOptionContent(imgIndex){
+				var g_liImg = Object.keys(imgListDict)
+				for(var i = 0; i < g_liImg.length; ++i){
+					if(imgIndex == g_liImg[i].substring(0,2)){
+						var clusternumber = g_liImg[i].charAt(3)
+					}	
+				}
+				var liColor = ["#2a79af","#fe7f01","#369f2f","#e31a1c","#fb9a99","#6c4199","#ab5e33","#c8b0d4"]
+				var liColorname = ["blue","orange","green","red","pink","purple","brown","lavender"]
+				
+				var optionContent = ""
+				var isQuestion1,optionText;
+
+				if((imgIndex-7)%4 == 0){
+					isQuestion1 = true;
+				}
+				else if((imgIndex-7)%4 == 2){
+					isQuestion1 = false;
+				}
+
+				console.log("isQuestion1", isQuestion1)
+
+				for (var j = 0 ; j < clusternumber; j++){
 					console.log("j", j)
-					if(j == 0){
-						var input = '<input type = "radio" name = "answer" ' + 
-					  	' value = " ' + lioptiongroups[j] + ' " ' +
-					  	' checked = "checked">'+lioptiongroups[j] 
-					  	optionContent = input;
-					  	console.log("1111111111111")
+					if(isQuestion1){
+						optionText = j+1
+						if(j == 0){
+							var input = '<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + optionText + ' " ' +
+						  	' checked = "checked">'
+						}
+						else{
+							var input = '<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + optionText + ' " >'
+						}
+						
+						optionContent = input + optionText;
+						
 					}
 					else{
-						var input = '<input type = "radio" name =  "answer" ' +
-					  	' value = " ' + lioptiongroups[j] + ' ">'+lioptiongroups[j] 
-					  	optionContent = optionContent.concat(input);
-					  	console.log("222222222222222")
+						if(j == 0){
+							var input = '<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + liColorname[j] + ' " ' +
+						  	' checked = "checked">'
+						}
+						else{
+							var input = '<input type = "radio" name =  "answer" ' +
+					  		' value = " ' + liColorname[j] + ' ">'
+						}
+						optionText = '<svg width="30" height="15"> <rect style = "fill: ' + liColor[j] + ';" width="30" height="15" ></rect> </svg>'
+
+						optionContent = input + optionText;
 					}
+
+					// if(j == 0){
+					// 	// var input = '<input type = "radio" name = "answer" ' + 
+					//  //  	' value = " ' + liColorname[j] + ' " ' +
+					//  //  	' checked = "checked">'+ optionText
+					//   	// '<svg width="30" height="15"> <rect style = "fill: ' + liColor[j] + ';" width="30" height="15" ></rect> </svg>' 
+
+					//   	optionContent = input;
+					//   	console.log("1111111111111")
+					// }
+					// else{
+					// 	// var input = '<input type = "radio" name =  "answer" ' +
+					//  //  	' value = " ' + liColorname[j] + ' ">'+ optionText
+					//   	// '<svg width="30" height="15"><rect style = "fill: ' + liColor[j] + ';" width="30" height="15" ></rect></svg>' 
+					//   	optionContent = optionContent.concat(input);
+					//   	console.log("222222222222222")
+					// }
 					
 				}
 				console.log("optionContent", optionContent)
@@ -186,12 +256,8 @@
 
 			successGetImgList = function(response, self){
 				console.log("response", response)
-				imglistDict = response['img']
-				var g_liImg = Object.keys(response['img'])
-				for(var i = 0; i < g_liImg.length; ++i){
-					console.log("aaaaa",g_liImg[i].substring(0,2))
-				}
-
+				imgListDict = response['img']
+				
 			}
 
 			loadImgTime = function(){
@@ -250,38 +316,42 @@
 		<script>
 			var timestart,timeend,interval
 			var g_functionhub = new FunctionHub()
-			var imglist;
+			var imgListDict;
+			var questionMap = {}
 			getImgList()
 
 			var question1 = {
 				"question": "How many clusters in the scatterplot?",
 				"questionname": "clusternumber",
-				"optiongroups": [1,2,3],
 			}
 
 			var question2 = {
-				"question": "Which cluster has larger average certainty, cluster 1 or cluster 2?",
-				"questionname": "clusternumber",
-				"optiongroups": [1,2],
+				"question": "Which cluster has larger average certainty, which color?",
+				"questionname": "largeraverage"
 			}
 
-			var question3 = {
-				"question": "How many clusters in the scatterplot?",
-				"questionname": "clusternumber",
-				"optiongroups": [1,2,3,4],
+			for(var i = 7; i <= 81; i+=2){
+				if( (i-7)%4 == 0 ){
+					// questionMap.push({
+					// 	i: question1
+					// })
+					questionMap[i] = question1
+				}
+				else if( (i-7)%4 == 2 ){
+					// questionMap.push({
+					// 	i: question2
+					// })
+					questionMap[i] = question2
+				}
 			}
-
-			var question4 = {
-				"question": "Which cluster has larger average certainty, cluster 1 or cluster 2?",
-				"questionname": "larger average", 
-				"optiongroups": [1,2],
-			}
-
 			
-			var questionMap = {
-				4: question1, 6: question2, 
-				8: question3, 10: question4,
-			}
+
+			// var questionMap1 = {
+			// 	7: question1, 9: question2, 
+			// 	11: question3, 13: question4,
+			// }
+
+			console.log("questionmap", questionMap)
 
 		</script>
 		
