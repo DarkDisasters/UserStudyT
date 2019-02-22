@@ -48,20 +48,32 @@
 			var question1 = {
 				"question": "How many clusters in the scatterplot?",
 				"questionname": "clusternumber",
-				"questionnumber": 1,
-				"optiongroups": [1,2,3,4],
+				"optiongroups": [1,2,3],
 			}
 
 			var question2 = {
 				"question": "Which cluster has larger average certainty, cluster 1 or cluster 2?",
-				"questionname": "larger average",
-				"questionnumber": 2, 
+				"questionname": "clusternumber",
+				"optiongroups": [1,2],
+			}
+
+			var question3 = {
+				"question": "How many clusters in the scatterplot?",
+				"questionname": "clusternumber",
+				"optiongroups": [1,2,3,4],
+			}
+
+			var question4 = {
+				"question": "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+				"questionname": "larger average", 
 				"optiongroups": [1,2],
 			}
 
 			
 			var questionMap = {
-				4: question1, 6: question2}
+				4: question1, 6: question2, 
+				8: question3, 10: question4,
+			}
 
 		</script>
 
@@ -154,6 +166,8 @@
 						return getTextPage('Scatter Plot')
 					case 4:
 					case 6:
+					case 8:
+					case 10:
 						var imgContent = getImgContent(slideIndex);
 						var questionContent = getQuestionContent(questionMap[slideIndex]["question"], 1);
 						var optionContent = getOptionContent(questionMap[slideIndex])
