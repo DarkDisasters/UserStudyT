@@ -41,95 +41,6 @@
 		<!-- <script type="text/javascript" src="./lib/lurlquery.js"></script> -->
         <script type="text/javascript" src = "./js/functionhub.js"></script>
 
-		<script>
-			var timestart,timeend,interval
-			var g_functionhub = new FunctionHub()
-
-			var question1 = {
-				"question": "How many clusters in the scatterplot?",
-				"questionname": "clusternumber",
-				"optiongroups": [1,2,3],
-			}
-
-			var question2 = {
-				"question": "Which cluster has larger average certainty, cluster 1 or cluster 2?",
-				"questionname": "clusternumber",
-				"optiongroups": [1,2],
-			}
-
-			var question3 = {
-				"question": "How many clusters in the scatterplot?",
-				"questionname": "clusternumber",
-				"optiongroups": [1,2,3,4],
-			}
-
-			var question4 = {
-				"question": "Which cluster has larger average certainty, cluster 1 or cluster 2?",
-				"questionname": "larger average", 
-				"optiongroups": [1,2],
-			}
-
-			
-			var questionMap = {
-				4: question1, 6: question2, 
-				8: question3, 10: question4,
-			}
-
-		</script>
-
-		<script>
-			loadImgTime = function(){
-                timestart = new Date()
-            }
-
-            nextButtonTime = function(){
-                console.log("timestart", timestart)
-                timeend = new Date();
-                var intervalms = (timeend - timestart);
-                var days = Math.floor(intervalms/(24*3600*1000))
-                
-                var level1 = intervalms%(24*3600*1000)
-                var hours = Math.floor(level1/(3600*1000))
-
-                var level2 = intervalms%(3600*1000)
-                var minutes = Math.floor(level2/(60*1000))
-
-                var level3 = intervalms%(60*1000)
-                var seconds = Math.round(level3/1000)
-
-                var level4 = intervalms%1000
-                var seconds2 = Math.round(level4/10) / 100
-
-
-
-                interval = hours * 3600 + minutes*60 + seconds + seconds2
-                console.log("timeend", timeend)
-                console.log("interval",interval)
-                timestart = timeend
-            }
-
-            answerSubmit = function(imgIndex){
-                nextButtonTime();
-                var self = this;
-                this._answer = $('input:radio[name="answer"]:checked').val();
-                this._question = $('#question').text()
-                this._imgname = imgIndex.toString().concat(".png")
-                var formData = new FormData()
-                formData.append('question',this._question)
-                formData.append('answer',this._answer)
-                formData.append('answerinterval',interval)
-                formData.append('imgname', this._imgname)
-                var url = "http://localhost:22030/saveanswerinfo"
-                lSendUrl("POST", url, formData, self.successSaveAnswer)
-
-            }
-
-            successSaveAnswer = function(response, self){
-                console.log("save answer ok")
-            }
-
-		</script>
-
 		<script type="text/javascript">
 
 			g_slide = 1;
@@ -265,6 +176,114 @@
 			}
 		</script>
 
+		<script>
+
+			getImgList = function(){
+				var formData = new FormData()
+				var url = "http://localhost:22030/getImgList"
+				lSendUrl('POST',url, formData, successGetImgList)
+			}
+
+			successGetImgList = function(response, self){
+				console.log("response", response)
+				imglistDict = response['img']
+				var g_liImg = Object.keys(response['img'])
+				for(var i = 0; i < g_liImg.length; ++i){
+					console.log("aaaaa",g_liImg[i].substring(0,2))
+				}
+
+			}
+
+			loadImgTime = function(){
+                timestart = new Date()
+            }
+
+            nextButtonTime = function(){
+                console.log("timestart", timestart)
+                timeend = new Date();
+                var intervalms = (timeend - timestart);
+                var days = Math.floor(intervalms/(24*3600*1000))
+                
+                var level1 = intervalms%(24*3600*1000)
+                var hours = Math.floor(level1/(3600*1000))
+
+                var level2 = intervalms%(3600*1000)
+                var minutes = Math.floor(level2/(60*1000))
+
+                var level3 = intervalms%(60*1000)
+                var seconds = Math.round(level3/1000)
+
+                var level4 = intervalms%1000
+                var seconds2 = Math.round(level4/10) / 100
+
+
+
+                interval = hours * 3600 + minutes*60 + seconds + seconds2
+                console.log("timeend", timeend)
+                console.log("interval",interval)
+                timestart = timeend
+            }
+
+            answerSubmit = function(imgIndex){
+                nextButtonTime();
+                var self = this;
+                this._answer = $('input:radio[name="answer"]:checked').val();
+                this._question = $('#question').text()
+                this._imgname = imgIndex.toString().concat(".png")
+                var formData = new FormData()
+                formData.append('question',this._question)
+                formData.append('answer',this._answer)
+                formData.append('answerinterval',interval)
+                formData.append('imgname', this._imgname)
+                var url = "http://localhost:22030/saveanswerinfo"
+                lSendUrl("POST", url, formData, self.successSaveAnswer)
+
+            }
+
+            successSaveAnswer = function(response, self){
+                console.log("save answer ok")
+            }
+
+		</script>
+
+
+		<script>
+			var timestart,timeend,interval
+			var g_functionhub = new FunctionHub()
+			var imglist;
+			getImgList()
+
+			var question1 = {
+				"question": "How many clusters in the scatterplot?",
+				"questionname": "clusternumber",
+				"optiongroups": [1,2,3],
+			}
+
+			var question2 = {
+				"question": "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+				"questionname": "clusternumber",
+				"optiongroups": [1,2],
+			}
+
+			var question3 = {
+				"question": "How many clusters in the scatterplot?",
+				"questionname": "clusternumber",
+				"optiongroups": [1,2,3,4],
+			}
+
+			var question4 = {
+				"question": "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+				"questionname": "larger average", 
+				"optiongroups": [1,2],
+			}
+
+			
+			var questionMap = {
+				4: question1, 6: question2, 
+				8: question3, 10: question4,
+			}
+
+		</script>
 		
 	</head>
 </html>

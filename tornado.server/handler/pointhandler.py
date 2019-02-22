@@ -7,9 +7,13 @@ from pymongo import MongoClient
 
 import setting
 
+import glob
+
 from PIL import Image
+
 import io
 import os.path
+from os.path import basename
 
 import json
 
@@ -35,3 +39,18 @@ class GetSlide(tornado.web.RequestHandler):
 			'slideIndex': slide,
 			})
 		# self.render('slide' + slide + '.html')
+    
+class GetImgListHandler(tornado.web.RequestHandler):
+    def post(self):
+        imgList = glob.glob("./rc/*.png");
+        
+        x = {}
+
+        for img in imgList:
+            imgName = basename(img).split(".")[0]
+            x[imgName] = img;
+        print('img list', imgList[0: 7], len(imgList))
+        print('x', x)
+
+        self.set_header('Access-Control-Allow-Origin', "*")
+        self.write({'img': x}) 
