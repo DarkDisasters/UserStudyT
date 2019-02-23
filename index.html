@@ -78,34 +78,54 @@
 				// })
 			}
 			function getPageContent(slideIndex){
-				switch(slideIndex){
-					case 1:  //welcome slide
-						return getTextPage('welcome : )')
-					case 2: //user info
-						return getUserInfoForm();
-						break;
-					case 6: //scatterplot welcome
-					case 8:
-					case 10:
-					case 12:
-					case 34:
-					case 36:
-						var questionContent = questionMap[slideIndex+1]["question"]
-						return getTextPage(questionContent, true)
-					case 7:
-					case 9:
-					case 11:
-					case 13:
-					case 35:
-					case 37:
-						var imgContent = getImgContent(slideIndex);
-						var questionContent = getQuestionContent(questionMap[slideIndex]["question"]);
-						var optionContent = getOptionContent(slideIndex)
-
-						return imgContent + questionContent + optionContent;
-					default:
-						return getTextPage('Continue...', false)
+				if(slideIndex == 1){
+					return getTextPage('welcome :)')
 				}
+				else if(slideIndex == 2){
+					return getUserInfoForm();
+				}
+				else if(slideIndex >= 6 && slideIndex%2 == 0){
+					var questionContent = questionMap[slideIndex+1]["question"]
+					return getTextPage(questionContent, true)
+				}
+				else if(slideIndex >= 7 && slideIndex%2 == 1){
+					var imgContent = getImgContent(slideIndex);
+					var questionContent = getQuestionContent(questionMap[slideIndex]["question"]);
+					var optionContent = getOptionContent(slideIndex)
+
+					return imgContent + questionContent + optionContent;
+				}
+				else{
+					return getTextPage('Continue...', false)
+				}
+				// switch(slideIndex){
+				// 	case 1:  //welcome slide
+				// 		return getTextPage('welcome : )')
+				// 	case 2: //user info
+				// 		return getUserInfoForm();
+				// 		break;
+				// 	case 6: //scatterplot welcome
+				// 	case 8:
+				// 	case 10:
+				// 	case 12:
+				// 	case 34:
+				// 	case 36:
+				// 		var questionContent = questionMap[slideIndex+1]["question"]
+				// 		return getTextPage(questionContent, true)
+				// 	case 7:
+				// 	case 9:
+				// 	case 11:
+				// 	case 13:
+				// 	case 35:
+				// 	case 37:
+						// var imgContent = getImgContent(slideIndex);
+						// var questionContent = getQuestionContent(questionMap[slideIndex]["question"]);
+						// var optionContent = getOptionContent(slideIndex)
+
+						// return imgContent + questionContent + optionContent;
+				// 	default:
+				// 		return getTextPage('Continue...', false)
+				// }
 			}
 
 			function getUserInfoForm(){
@@ -205,8 +225,8 @@
 						  	' value = " ' + optionText + ' " >'
 						}
 						
-						optionContent = input + optionText;
-						
+						optionContent = optionContent.concat(input + optionText);
+
 					}
 					else{
 						if(j == 0){
@@ -218,9 +238,9 @@
 							var input = '<input type = "radio" name =  "answer" ' +
 					  		' value = " ' + liColorname[j] + ' ">'
 						}
-						optionText = '<svg width="30" height="15"> <rect style = "fill: ' + liColor[j] + ';" width="30" height="15" ></rect> </svg>'
+						optionText = '<svg width="30" height="15"> <rect style = "fill: ' + liColor[j] + ';" width="35" height="15" ></rect> </svg>'
 
-						optionContent = input + optionText;
+						optionContent = optionContent.concat(input + optionText);
 					}
 
 					// if(j == 0){
