@@ -84,19 +84,23 @@
 				else if(slideIndex == 2){
 					return getUserInfoForm();
 				}
-				else if(slideIndex >= 6 && slideIndex%2 == 0){
+				else if(slideIndex >=3 && slideIndex <=5){
+					return getTextPage('Continue...', false)
+				}
+				else if(slideIndex >= 6 && slideIndex <= 80 && slideIndex%2 == 0){
 					var questionContent = questionMap[slideIndex+1]["question"]
 					return getTextPage(questionContent, true)
 				}
-				else if(slideIndex >= 7 && slideIndex%2 == 1){
+				else if(slideIndex >= 7 && slideIndex <= 81 && slideIndex%2 == 1 ){
+					console.log("quesitonmap", questionMap)
 					var imgContent = getImgContent(slideIndex);
 					var questionContent = getQuestionContent(questionMap[slideIndex]["question"]);
 					var optionContent = getOptionContent(slideIndex)
 
 					return imgContent + questionContent + optionContent;
 				}
-				else{
-					return getTextPage('Continue...', false)
+				else if(slideIndex >= 82){
+					return getTextPage('Finish', false)
 				}
 				// switch(slideIndex){
 				// 	case 1:  //welcome slide
@@ -189,41 +193,54 @@
 
 			}
 
-			function getOptionContent(imgIndex){
-				var g_liImg = Object.keys(imgListDict)
-				for(var i = 0; i < g_liImg.length; ++i){
-					if(imgIndex == g_liImg[i].substring(0,2)){
-						var clusternumber = g_liImg[i].charAt(3)
-					}	
-				}
-				var liColor = ["#2a79af","#fe7f01","#369f2f","#e31a1c","#fb9a99","#6c4199","#ab5e33","#c8b0d4"]
-				var liColorname = ["blue","orange","green","red","pink","purple","brown","lavender"]
-				
+			function addOptionContent(clusternumber, liColor, liColorname, isQuestion1){
+				var optionText;
 				var optionContent = ""
-				var isQuestion1,optionText;
-
-				if((imgIndex-7)%4 == 0){
-					isQuestion1 = true;
-				}
-				else if((imgIndex-7)%4 == 2){
-					isQuestion1 = false;
-				}
-
-				console.log("isQuestion1", isQuestion1)
 
 				for (var j = 0 ; j < clusternumber; j++){
 					console.log("j", j)
 					if(isQuestion1){
 						optionText = j+1
-						if(j == 0){
+
+						if(clusternumber <= 3){
+							if(j == 0){
 							var input = '<input type = "radio" name = "answer" ' + 
 						  	' value = " ' + optionText + ' " ' +
 						  	' checked = "checked">'
+							}
+							else{
+								var input = '<input type = "radio" name = "answer" ' + 
+							  	' value = " ' + optionText + ' " >'
+							}
 						}
-						else{
+						else if(clusternumber == 5){
+							// if(clusternumber >= 2){
 							var input = '<input type = "radio" name = "answer" ' + 
-						  	' value = " ' + optionText + ' " >'
+						  	' value = " ' + 3 + ' " ' + 
+						  	' checked = "checked">' + 3+
+						  	'<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 5 + ' " >' + 5+ 
+						  	'<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 6 + ' " >' + 6 
+						  	optionContent = input
+						  	break;
 						}
+						else if(clusternumber == 8){
+							var input = '<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 6 + ' " ' +
+						  	' checked = "checked">'+ 6 + 
+						  	'<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 8 + ' " >'+ 8 +
+						  	'<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 9 + ' " >'+ 9 +
+						  	'<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 10 + ' " >'+ 10 
+						  	optionContent = input
+						  	break; 
+						}
+
+						
+						
 						
 						optionContent = optionContent.concat(input + optionText);
 
@@ -261,8 +278,44 @@
 					// }
 					
 				}
-				console.log("optionContent", optionContent)
-				return '<div id = "optionContent">' + optionContent + '</div>'
+				return optionContent;
+			}
+
+			function getOptionContent(imgIndex){
+				var isQuestion1;
+				var g_liImg = Object.keys(imgListDict)
+				for(var i = 0; i < g_liImg.length; ++i){
+					if(imgIndex == g_liImg[i].substring(0,2)){
+						var clusternumber = g_liImg[i].charAt(3)
+						var questionnumber = g_liImg[i].charAt(5)
+						if(questionnumber == 1){
+							isQuestion1 = true;
+						}
+						else if(questionnumber == 2){
+							isQuestion1 = false;
+						}
+						break;
+					}	
+				}
+				var liColor = ["#2a79af","#fe7f01","#369f2f","#e31a1c","#fb9a99","#6c4199","#ab5e33","#c8b0d4"]
+				var liColorname = ["blue","orange","green","red","pink","purple","brown","lavender"]
+				var l_optionContent = ""
+
+				// if((imgIndex-7)%4 == 0){
+				// 	isQuestion1 = true;
+				// }
+				// else if((imgIndex-7)%4 == 2){
+				// 	isQuestion1 = false;
+				// }
+
+				console.log("isQuestion1", isQuestion1)
+
+				l_optionContent = addOptionContent(clusternumber, liColor, liColorname, isQuestion1)
+				// l_optionContent = addOptionContent(clusternumber, liColor, liColorname, isQuestion1)
+
+
+				console.log("optionContent", l_optionContent)
+				return '<div id = "optionContent">' + l_optionContent + '</div>'
 			}
 		</script>
 
@@ -277,7 +330,36 @@
 			successGetImgList = function(response, self){
 				console.log("response", response)
 				imgListDict = response['img']
+				questionMapFunc();
+				console.log("imgListDictresponse", imgListDict)
 				
+			}
+
+			questionMapFunc = function(){
+				var question1 = {
+				"question": "How many clusters in the scatterplot?",
+				"questionname": "clusternumber",
+				}
+
+				var question2 = {
+					"question": "Which cluster has larger average certainty, which color?",
+					"questionname": "largeraverage"
+				}
+
+				var imgList = Object.keys(imgListDict)
+				// console.log("imglist",imgList)
+				for(var i = 0; i < imgList.length; ++i){
+					var questionPageNumber = parseInt(imgList[i].substring(0,2))
+					var imgQuestionNumber = imgList[i].charAt(5)
+					if(imgQuestionNumber == 1){
+						questionMap[questionPageNumber] = question1;
+					}
+					else if(imgQuestionNumber == 2){
+						questionMap[questionPageNumber] = question2;
+					}
+					
+				}
+
 			}
 
 			loadImgTime = function(){
@@ -340,30 +422,16 @@
 			var questionMap = {}
 			getImgList()
 
-			var question1 = {
-				"question": "How many clusters in the scatterplot?",
-				"questionname": "clusternumber",
-			}
+			
 
-			var question2 = {
-				"question": "Which cluster has larger average certainty, which color?",
-				"questionname": "largeraverage"
-			}
-
-			for(var i = 7; i <= 81; i+=2){
-				if( (i-7)%4 == 0 ){
-					// questionMap.push({
-					// 	i: question1
-					// })
-					questionMap[i] = question1
-				}
-				else if( (i-7)%4 == 2 ){
-					// questionMap.push({
-					// 	i: question2
-					// })
-					questionMap[i] = question2
-				}
-			}
+			// for(var i = 7; i <= 81; i+=2){
+			// 	if( (i-7)%4 == 0 ){
+			// 		questionMap[i] = question1
+			// 	}
+			// 	else if( (i-7)%4 == 2 ){
+			// 		questionMap[i] = question2
+			// 	}
+			// }
 			
 
 			// var questionMap1 = {
@@ -371,7 +439,7 @@
 			// 	11: question3, 13: question4,
 			// }
 
-			console.log("questionmap", questionMap)
+			// console.log("questionmap", questionMap)
 
 		</script>
 		

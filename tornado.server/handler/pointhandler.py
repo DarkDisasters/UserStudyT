@@ -42,7 +42,7 @@ class GetSlide(tornado.web.RequestHandler):
     
 class GetImgListHandler(tornado.web.RequestHandler):
     def post(self):
-        imgList = glob.glob("./rc/*.png");
+        imgList = glob.glob("./rc1/*.png");
         
         x = {}
 
