@@ -22,7 +22,7 @@
             }
             #content{
                 text-align: center;
-                background: lightgray;
+                background: #c7e9c0;
                 height: 100%;
                 /*padding: 30px;*/
             }
@@ -71,8 +71,8 @@
                 var g_option =  document.getElementById("optionContent")
                 var questionintro = document.getElementById("questionintro")
 
-                $('#pageno')[0].innerHTML = '' + (g_slide + 1);
-
+                $('#pageno')[0].innerHTML = '' + (g_slide + 1) + '/83';
+ 
                 if(g_slide == 2){
                     g_functionhub.submit()
                 }
@@ -129,7 +129,7 @@
                     return imgContent + questionContent + optionContent;
                 }
                 else if(slideIndex >= 82){
-                    return getTextPage('Finish', false)
+                    return getTextPage('Finish! Thank you : )', false)
                 }
                 // switch(slideIndex){
                 //  case 1:  //welcome slide
@@ -233,32 +233,64 @@
             function addOptionContent(clusternumber, liColor, liColorname, isQuestion1){
                 var optionText;
                 var optionContent = ""
-                var p1 = "p1"
-                var p2 = "p2"
+
                 for (var j = 0 ; j < clusternumber; j++){
                     console.log("j", j)
                     if(isQuestion1){
+                        optionText = j+2
+
+                        if(clusternumber <= 3){
+                            if(j == 0){
+                            var input = '<input type = "radio" name = "answer" ' + 
+                            ' value = " ' + optionText + ' " ' +
+                            ' checked = "checked">'
+                            }
+                            else{
+                                var input = '<input type = "radio" name = "answer" ' + 
+                                ' value = " ' + optionText + ' " >'
+                            }
+                        }
+                        else if(clusternumber == 5){
+                            // if(clusternumber >= 2){
+                            var input = '<input type = "radio" name = "answer" ' + 
+                            ' value = " ' + 3 + ' " ' + 
+                            ' checked = "checked">' + 3+
+                            '<input type = "radio" name = "answer" ' + 
+                            ' value = " ' + 5 + ' " >' + 5+ 
+                            '<input type = "radio" name = "answer" ' + 
+                            ' value = " ' + 6 + ' " >' + 6 
+                            optionContent = input
+                            break;
+                        }
+                        else if(clusternumber == 8){
+                            var input = '<input type = "radio" name = "answer" ' + 
+                            ' value = " ' + 6 + ' " ' +
+                            ' checked = "checked">'+ 6 + 
+                            '<input type = "radio" name = "answer" ' + 
+                            ' value = " ' + 8 + ' " >'+ 8 +
+                            '<input type = "radio" name = "answer" ' + 
+                            ' value = " ' + 9 + ' " >'+ 9 +
+                            '<input type = "radio" name = "answer" ' + 
+                            ' value = " ' + 10 + ' " >'+ 10 
+                            optionContent = input
+                            break; 
+                        }
+
+                        
+                        
+                        
+                        optionContent = optionContent.concat(input + optionText);
+
+                    }else{
+                        var cluster1 = "cluster1"
+                        var cluster2 = "cluster2"
                         var input = '<input type = "radio" name = "answer" ' + 
-                            ' value = "p1" checked = "checked">'+ p1+
+                            ' value = "cluster1" checked = "checked">'+ cluster1+
                          '<input type = "radio" name =  "answer" ' +
-                            ' value = "p2">'+ p2
+                            ' value = "cluster2">'+cluster2
 
                         optionContent = input
                         break
-  
-                    }else{
-                        if(j == 0){
-                            var input = '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + liColorname[j] + ' " ' +
-                            ' checked = "checked">'
-                        }
-                        else{
-                            var input = '<input type = "radio" name =  "answer" ' +
-                            ' value = " ' + liColorname[j] + ' ">'
-                        }
-                        optionText = '<svg width="30" height="15"> <rect style = "fill: ' + liColor[j] + ';" width="35" height="15" ></rect> </svg>'
-
-                        optionContent = optionContent.concat(input + optionText);
                     }
 
                     // if(j == 0){
@@ -338,15 +370,14 @@
 
             questionMapFunc = function(){
                 var question1 = {
-                    "question": "Which point belongs to the cluster with a higher certainty, point1 or point2?",
+                    "question": "How many clusters in the scatterplot?",
                     "questionname": "clusternumber",
                 }
 
                 var question2 = {
-                    "question": "Which cluster the given point belongs to? which color?",
+                    "question": "Which cluster has larger average certainty, cluster 1 or cluster 2?", 
                     "questionname": "largeraverage"
                 }
-
 
                 var imgList = Object.keys(imgListDict)
                 // console.log("imglist",imgList)
@@ -366,11 +397,16 @@
 
             loadImgTime = function(){
                 timestart = new Date()
+                console.log(' time start ', timestart)
             }
 
             nextButtonTime = function(){
                 console.log("timestart", timestart)
+
                 timeend = new Date();
+
+                // interval_new = (timeend - timestart)/1000
+
                 var intervalms = (timeend - timestart);
                 var days = Math.floor(intervalms/(24*3600*1000))
                 
@@ -386,12 +422,11 @@
                 var level4 = intervalms%1000
                 var seconds2 = Math.round(level4/10) / 100
 
-
-
                 interval = hours * 3600 + minutes*60 + seconds + seconds2
                 console.log("timeend", timeend)
                 console.log("interval",interval)
-                timestart = timeend
+
+                // timestart = timeend
             }
 
             answerSubmit = function(imgIndex){

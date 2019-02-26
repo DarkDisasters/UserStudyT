@@ -233,68 +233,32 @@
             function addOptionContent(clusternumber, liColor, liColorname, isQuestion1){
                 var optionText;
                 var optionContent = ""
-
+                var p1 = "p1"
+                var p2 = "p2"
                 for (var j = 0 ; j < clusternumber; j++){
                     console.log("j", j)
                     if(isQuestion1){
-                        optionText = j+1
-
-                        if(clusternumber <= 3){
-                            if(j == 0){
-                            var input = '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + optionText + ' " ' +
-                            ' checked = "checked">'
-                            }
-                            else{
-                                var input = '<input type = "radio" name = "answer" ' + 
-                                ' value = " ' + optionText + ' " >'
-                            }
-                        }
-                        else if(clusternumber == 5){
-                            // if(clusternumber >= 2){
-                            var input = '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 3 + ' " ' + 
-                            ' checked = "checked">' + 3+
-                            '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 5 + ' " >' + 5+ 
-                            '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 6 + ' " >' + 6 
-                            optionContent = input
-                            break;
-                        }
-                        else if(clusternumber == 8){
-                            var input = '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 6 + ' " ' +
-                            ' checked = "checked">'+ 6 + 
-                            '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 8 + ' " >'+ 8 +
-                            '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 9 + ' " >'+ 9 +
-                            '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 10 + ' " >'+ 10 
-                            optionContent = input
-                            break; 
-                        }            
-                        optionContent = optionContent.concat(input + optionText);
-
-                    }else{
-                        // if(j == 0){
-                        //     var input = '<input type = "radio" name = "answer" ' + 
-                        //     ' value = " ' + liColorname[j] + ' " ' +
-                        //     ' checked = "checked">'
-                        // }
-                        // else{
-                        //     var input = '<input type = "radio" name =  "answer" ' +
-                        //     ' value = " ' + liColorname[j] + ' ">'
-                        // }
-                        // optionText = '<svg width="30" height="15"> <rect style = "fill: ' + liColor[j] + ';" width="35" height="15" ></rect> </svg>'
                         var input = '<input type = "radio" name = "answer" ' + 
-                            ' value = "1" checked = "checked">'+ 1+
+                            ' value = "p1" checked = "checked">'+ p1+
                          '<input type = "radio" name =  "answer" ' +
-                            ' value = "2">'+2
+                            ' value = "p2">'+ p2
 
                         optionContent = input
                         break
+  
+                    }else{
+                        if(j == 0){
+                            var input = '<input type = "radio" name = "answer" ' + 
+                            ' value = " ' + liColorname[j] + ' " ' +
+                            ' checked = "checked">'
+                        }
+                        else{
+                            var input = '<input type = "radio" name =  "answer" ' +
+                            ' value = " ' + liColorname[j] + ' ">'
+                        }
+                        optionText = '<svg width="30" height="15"> <rect style = "fill: ' + liColor[j] + ';" width="35" height="15" ></rect> </svg>'
+
+                        optionContent = optionContent.concat(input + optionText);
                     }
 
                     // if(j == 0){
@@ -374,14 +338,15 @@
 
             questionMapFunc = function(){
                 var question1 = {
-                    "question": "How many clusters in the scatterplot?",
+                    "question": "Which point belongs to the cluster with a higher certainty, point1 or point2?",
                     "questionname": "clusternumber",
                 }
 
                 var question2 = {
-                    "question": "Which cluster has larger average certainty, cluster 1 or cluster 2?", 
+                    "question": "Which cluster the given point belongs to? which color?",
                     "questionname": "largeraverage"
                 }
+
 
                 var imgList = Object.keys(imgListDict)
                 // console.log("imglist",imgList)

@@ -1,0 +1,484 @@
+<html>
+	<script src = ></script>
+
+	<body>
+		<div id="content"></div>
+		<div id="nextbutton">
+			<button id="buttontonext" onClick="nextSlide()"> next page </button>
+		</div>
+		<div id="pagenodiv"><h3 id="pageno">1</h3></div>
+	</body>
+	<head>	
+		<style type="text/css">
+			#pagenodiv{
+				position: absolute;
+				top: 10%;
+				right: 5%;
+			}
+			.centerlinediv{
+			    top: 45%;
+			    position: absolute;
+			    width: 100%;
+			}
+			#content{
+			    text-align: center;
+			    background: #c7e9c0;
+			    height: 100%;
+			    /*padding: 30px;*/
+			}
+			#nextbutton{
+			    position: absolute;
+			    right: 5%;
+			    bottom: 10%;
+			}
+			#nextbutton button{
+			    font-size: 30;
+			    padding: 0 20;
+			}
+			input {
+   			 	margin: 0 20;
+			}
+			input[type=checkbox]{
+				width: 30px;
+				height: 30px;
+			}
+			.mainimg{
+				/*height: 80%;*/
+				height: 400px;
+				margin-bottom: 30px;
+				background: white;
+			}
+			#mainimgdiv{
+				position: absolute;
+				top: 10%;
+				height: 80%;
+				width: 100%;
+			}
+		</style>
+
+		<script type="text/javascript" src="./lib/jquery.js"></script>
+		<script src = "./js/lfunctionhub.js"></script>
+		<!-- <script type="text/javascript" src="./lib/lurlquery.js"></script> -->
+        <script type="text/javascript" src = "./js/functionhub.js"></script>
+
+		<script type="text/javascript">
+
+			g_slide = 1;
+			$('#content')[0].innerHTML = getPageContent(g_slide)//'hello page#' + g_slide
+
+			function nextSlide(){
+
+				var g_option =  document.getElementById("optionContent")
+				var questionintro = document.getElementById("questionintro")
+
+				$('#pageno')[0].innerHTML = '' + (g_slide + 1) + '/83';
+ 
+				if(g_slide == 2){
+					g_functionhub.submit()
+				}
+
+				if(g_slide >= 6 && questionintro != undefined){
+					loadImgTime()
+					$('#buttontonext')[0].innerHTML = "confirm & next"
+				}
+
+				if(g_slide >= 7 && g_option != undefined){
+					answerSubmit(g_slide)
+					$('#buttontonext')[0].innerHTML = "next"
+				}
+
+				g_slide += 1
+
+				$('#content')[0].innerHTML = getPageContent(g_slide);
+				console.log("pagenumber", g_slide)
+				
+				// var formData = new FormData()
+				// formData.append('slideIndex', g_slide)
+				// lSendUrl('POST', 'http://localhost:22030/slide', formData, 
+				// 	function(response){
+				// 		console.log('success get slide', response['slideIndex']);
+				// 		g_slide = response['slideIndex'];
+				// 		$('#content')[0].innerHTML = getPageContent(g_slide);
+				// })
+			}
+			function getPageContent(slideIndex){
+				if(slideIndex == 1){
+					return getTextPage('welcome :)')
+				}
+				else if(slideIndex == 2){
+					return getUserInfoForm();
+				}else if(slideIndex == 3){
+					return getTextPage('Scatterplot', false)
+				}else if(slideIndex == 4){
+					return '<div id="mainimgdiv">' + 
+					   '<img class="mainimg" src="./rc1/scatterplot_intro.png"/>' +
+					   '</div>'
+				}else if(slideIndex == 5){
+					return getTextPage('Exercise')
+				}else if(slideIndex >= 6 && slideIndex <= 80 && slideIndex%2 == 0){
+					var questionContent = questionMap[slideIndex+1]["question"]
+					return getTextPage(questionContent, true)
+				}
+				//testing
+				else if(slideIndex >= 7 && slideIndex <= 81 && slideIndex%2 == 1 ){
+					console.log("quesitonmap", questionMap)
+					var imgContent = getImgContent(slideIndex);
+					var questionContent = getQuestionContent(questionMap[slideIndex]["question"]);
+					var optionContent = getOptionContent(slideIndex)
+
+					return imgContent + questionContent + optionContent;
+				}
+				else if(slideIndex >= 82){
+					return getTextPage('Finish! Thank you : )', false)
+				}
+				// switch(slideIndex){
+				// 	case 1:  //welcome slide
+				// 		return getTextPage('welcome : )')
+				// 	case 2: //user info
+				// 		return getUserInfoForm();
+				// 		break;
+				// 	case 6: //scatterplot welcome
+				// 	case 8:
+				// 	case 10:
+				// 	case 12:
+				// 	case 34:
+				// 	case 36:
+				// 		var questionContent = questionMap[slideIndex+1]["question"]
+				// 		return getTextPage(questionContent, true)
+				// 	case 7:
+				// 	case 9:
+				// 	case 11:
+				// 	case 13:
+				// 	case 35:
+				// 	case 37:
+						// var imgContent = getImgContent(slideIndex);
+						// var questionContent = getQuestionContent(questionMap[slideIndex]["question"]);
+						// var optionContent = getOptionContent(slideIndex)
+
+						// return imgContent + questionContent + optionContent;
+				// 	default:
+				// 		return getTextPage('Continue...', false)
+				// }
+			}
+
+			function getUserInfoForm(){
+				// return '<h1>Age<input id="age"></input></h1><br>' +
+				// 	   '<h1>Gender<input type="checkbox">Female</input>' + 
+				// 	   '<input type="checkbox">Male</input></h1><br>'
+				return '<div style="position:absolute;top:30%;left:10%"><form method="post" action="">' +
+                			'<table border="1" bordercolor= "steerblue" cellpadding="10px" cellspacing="0">'+
+                    			'<caption>Info</caption> '+
+			                 	'<tbody>'+
+			                        '<tr>'+
+			                            '<td>Age: </td>'+
+			                            '<td><input type = "text" name = "age"></input></td>'+
+			                        '</tr>'+
+			                        '<tr><td>Gender: </td><td><input type = "radio" name = "gender" value="F" checked="checked">Female<input type = "radio" name = "gender" value = "M">Male</td></tr>'+
+			                        '<tr>' + 
+			                        	'<td>Academic studies</td>'+
+			                        	'<td>' + 
+			                        		'<input type = "radio" name = "studyinterest" value = "Science Engineering" checked="checked">Science/Engineering' + 
+			                        		'<input type = "radio" name = "studyinterest" value = "Humanities and Social sciences">Humanities and Social sciences' + 
+			                        		'<input type = "radio" name = "studyinterest" value = "Others">Others'+
+			                        	'</td>' + 
+			                        '</tr>' +
+			                        '<tr><td>Academic Level</td><td><input type = "radio" name = "academiclevel" value = "Undergraduate" checked="checked">Undergraduate<input type = "radio" name = "academiclevel" value = "Post graduate (MSc, PhD)">Post graduate (MSc, PhD)<input type = "radio" name = "academiclevel" value = "Other">Other</td></tr>'+
+			                        '<tr>'+
+			                            '<td>Assess your experience in Data Visualization</td>'+
+			                            '<td>'+
+			                                '<input type = "radio" name = "experience" value = "None" checked="checked">None'+
+			                                '<input type = "radio" name = "experience" value = "Little">Little'+
+			                                '<input type = "radio" name = "experience" value = "Medium or pretty good">Medium or pretty good'+
+			                                '<input type = "radio" name = "experience" value = "Very good">Very good'+
+			                            '</td>'+
+			                        '</tr>'+
+			                    '</tbody>'+
+			                '</table>'+
+			                // '<input id = "submitbutton" type = "submit" name = "submit" value="submit" onclick >'+
+			            '</form></div>'
+			}
+
+			function getTextPage(text,isQuestionIntro){
+				if(isQuestionIntro){
+					return '<div class="centerlinediv"><h1 id = "questionintro">' + text + '</h1></div>'
+				}
+				else{
+					return '<div class="centerlinediv"><h1>' + text + '</h1></div>'
+				}
+			}
+			
+			function getImgContent(imgIndex){
+				var g_liImg = Object.keys(imgListDict)
+				for(var i = 0; i < g_liImg.length; ++i){
+					if(imgIndex == g_liImg[i].substring(0,2))
+					{
+						return '<div id="mainimgdiv">' + 
+					   '<img class="mainimg" src="' +imgListDict[g_liImg[i]] + '" />'
+					   '</div>'
+					}
+				}
+
+				console.log('<img class="mainimg" src=' + imgListDict[g_liImg[i]] + '/>');
+			}
+
+			function getQuestionContent(questionText){
+				return '<div id = "question">' + questionText +
+					   '</div>'
+			}
+
+			function getOptionContent2(){
+
+			}
+
+			function addOptionContent(clusternumber, liColor, liColorname, isQuestion1){
+				var optionText;
+				var optionContent = ""
+
+				for (var j = 0 ; j < clusternumber; j++){
+					console.log("j", j)
+					if(isQuestion1){
+						optionText = j+1
+
+						if(clusternumber <= 3){
+							if(j == 0){
+							var input = '<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + optionText + ' " ' +
+						  	' checked = "checked">'
+							}
+							else{
+								var input = '<input type = "radio" name = "answer" ' + 
+							  	' value = " ' + optionText + ' " >'
+							}
+						}
+						else if(clusternumber == 5){
+							// if(clusternumber >= 2){
+							var input = '<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 3 + ' " ' + 
+						  	' checked = "checked">' + 3+
+						  	'<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 5 + ' " >' + 5+ 
+						  	'<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 6 + ' " >' + 6 
+						  	optionContent = input
+						  	break;
+						}
+						else if(clusternumber == 8){
+							var input = '<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 6 + ' " ' +
+						  	' checked = "checked">'+ 6 + 
+						  	'<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 8 + ' " >'+ 8 +
+						  	'<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 9 + ' " >'+ 9 +
+						  	'<input type = "radio" name = "answer" ' + 
+						  	' value = " ' + 10 + ' " >'+ 10 
+						  	optionContent = input
+						  	break; 
+						}
+
+						
+						
+						
+						optionContent = optionContent.concat(input + optionText);
+
+					}else{
+						var cluster1 = "cluster1"
+                        var cluster2 = "cluster2"
+                        var input = '<input type = "radio" name = "answer" ' + 
+                            ' value = "cluster1" checked = "checked">'+ cluster1+
+                         '<input type = "radio" name =  "answer" ' +
+                            ' value = "cluster2">'+cluster2
+
+                        optionContent = input
+                        break
+					}
+
+					// if(j == 0){
+					// 	// var input = '<input type = "radio" name = "answer" ' + 
+					//  //  	' value = " ' + liColorname[j] + ' " ' +
+					//  //  	' checked = "checked">'+ optionText
+					//   	// '<svg width="30" height="15"> <rect style = "fill: ' + liColor[j] + ';" width="30" height="15" ></rect> </svg>' 
+
+					//   	optionContent = input;
+					//   	console.log("1111111111111")
+					// }
+					// else{
+					// 	// var input = '<input type = "radio" name =  "answer" ' +
+					//  //  	' value = " ' + liColorname[j] + ' ">'+ optionText
+					//   	// '<svg width="30" height="15"><rect style = "fill: ' + liColor[j] + ';" width="30" height="15" ></rect></svg>' 
+					//   	optionContent = optionContent.concat(input);
+					//   	console.log("222222222222222")
+					// }
+					
+				}
+				return optionContent;
+			}
+
+			function getOptionContent(imgIndex){
+				var isQuestion1;
+				var g_liImg = Object.keys(imgListDict)
+				for(var i = 0; i < g_liImg.length; ++i){
+					if(imgIndex == g_liImg[i].substring(0,2)){
+						var clusternumber = g_liImg[i].charAt(3)
+						var questionnumber = g_liImg[i].charAt(5)
+						if(questionnumber == 1){
+							isQuestion1 = true;
+						}
+						else if(questionnumber == 2){
+							isQuestion1 = false;
+						}
+						break;
+					}	
+				}
+				var liColor = ["#2a79af","#fe7f01","#369f2f","#e31a1c","#fb9a99","#6c4199","#ab5e33","#c8b0d4"]
+				var liColorname = ["blue","orange","green","red","pink","purple","brown","lavender"]
+				var l_optionContent = ""
+
+				// if((imgIndex-7)%4 == 0){
+				// 	isQuestion1 = true;
+				// }
+				// else if((imgIndex-7)%4 == 2){
+				// 	isQuestion1 = false;
+				// }
+
+				console.log("isQuestion1", isQuestion1)
+
+				l_optionContent = addOptionContent(clusternumber, liColor, liColorname, isQuestion1)
+				// l_optionContent = addOptionContent(clusternumber, liColor, liColorname, isQuestion1)
+
+
+				console.log("optionContent", l_optionContent)
+				return '<div id = "optionContent">' + l_optionContent + '</div>'
+			}
+		</script>
+
+		<script>
+
+			getImgList = function(){
+				var formData = new FormData()
+				var url = "http://localhost:22030/getImgList"
+				lSendUrl('POST',url, formData, successGetImgList)
+			}
+
+			successGetImgList = function(response, self){
+				console.log("response", response)
+				imgListDict = response['img']
+				questionMapFunc();
+				console.log("imgListDictresponse", imgListDict)
+				
+			}
+
+			questionMapFunc = function(){
+				var question1 = {
+					"question": "How many clusters in the scatterplot?",
+					"questionname": "clusternumber",
+				}
+
+				var question2 = {
+					"question": "Which cluster has larger average certainty, cluster 1 or cluster 2?", 
+					"questionname": "largeraverage"
+				}
+
+				var imgList = Object.keys(imgListDict)
+				// console.log("imglist",imgList)
+				for(var i = 0; i < imgList.length; ++i){
+					var questionPageNumber = parseInt(imgList[i].substring(0,2))
+					var imgQuestionNumber = imgList[i].charAt(5)
+					if(imgQuestionNumber == 1){
+						questionMap[questionPageNumber] = question1;
+					}
+					else if(imgQuestionNumber == 2){
+						questionMap[questionPageNumber] = question2;
+					}
+					
+				}
+
+			}
+
+			loadImgTime = function(){
+                timestart = new Date()
+				console.log(' time start ', timestart)
+            }
+
+            nextButtonTime = function(){
+                console.log("timestart", timestart)
+
+                timeend = new Date();
+
+                // interval_new = (timeend - timestart)/1000
+
+                var intervalms = (timeend - timestart);
+                var days = Math.floor(intervalms/(24*3600*1000))
+                
+                var level1 = intervalms%(24*3600*1000)
+                var hours = Math.floor(level1/(3600*1000))
+
+                var level2 = intervalms%(3600*1000)
+                var minutes = Math.floor(level2/(60*1000))
+
+                var level3 = intervalms%(60*1000)
+                var seconds = Math.round(level3/1000)
+
+                var level4 = intervalms%1000
+                var seconds2 = Math.round(level4/10) / 100
+
+                interval = hours * 3600 + minutes*60 + seconds + seconds2
+                console.log("timeend", timeend)
+                console.log("interval",interval)
+
+                // timestart = timeend
+            }
+
+            answerSubmit = function(imgIndex){
+                nextButtonTime();
+                var self = this;
+                this._answer = $('input:radio[name="answer"]:checked').val();
+                this._question = $('#question').text()
+                this._imgname = imgIndex.toString().concat(".png")
+                var formData = new FormData()
+                formData.append('question',this._question)
+                formData.append('answer',this._answer)
+                formData.append('answerinterval',interval)
+                formData.append('imgname', this._imgname)
+                var url = "http://localhost:22030/saveanswerinfo"
+                lSendUrl("POST", url, formData, self.successSaveAnswer)
+
+            }
+
+            successSaveAnswer = function(response, self){
+                console.log("save answer ok")
+            }
+
+		</script>
+
+
+		<script>
+			var timestart,timeend,interval
+			var g_functionhub = new FunctionHub()
+			var imgListDict;
+			var questionMap = {}
+			getImgList()
+
+			
+
+			// for(var i = 7; i <= 81; i+=2){
+			// 	if( (i-7)%4 == 0 ){
+			// 		questionMap[i] = question1
+			// 	}
+			// 	else if( (i-7)%4 == 2 ){
+			// 		questionMap[i] = question2
+			// 	}
+			// }
+			
+
+			// var questionMap1 = {
+			// 	7: question1, 9: question2, 
+			// 	11: question3, 13: question4,
+			// }
+
+			// console.log("questionmap", questionMap)
+
+		</script>
+		
+	</head>
+</html>
