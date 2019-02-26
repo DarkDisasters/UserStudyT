@@ -4,21 +4,32 @@
     <body>
         <div id="content"></div>
         <div id="nextbutton">
-            <button onClick="nextSlide()"> next page </button>
+            <button id="buttontonext" onClick="nextSlide()"> next page </button>
         </div>
+        <div id="pagenodiv"><h3 id="pageno">1</h3></div>
     </body>
     <head>  
         <style type="text/css">
+            #pagenodiv{
+                position: absolute;
+                top: 10%;
+                right: 5%;
+            }
+            .centerlinediv{
+                top: 45%;
+                position: absolute;
+                width: 100%;
+            }
             #content{
                 text-align: center;
                 background: lightgray;
                 height: 100%;
-                padding: 30px;
+                /*padding: 30px;*/
             }
             #nextbutton{
                 position: absolute;
                 right: 5%;
-                top: 50%;
+                bottom: 10%;
             }
             #nextbutton button{
                 font-size: 30;
@@ -32,7 +43,16 @@
                 height: 30px;
             }
             .mainimg{
+                /*height: 80%;*/
+                height: 400px;
+                margin-bottom: 30px;
+                background: white;
+            }
+            #mainimgdiv{
+                position: absolute;
+                top: 10%;
                 height: 80%;
+                width: 100%;
             }
         </style>
 
@@ -45,11 +65,13 @@
 
             g_slide = 1;
             $('#content')[0].innerHTML = getPageContent(g_slide)//'hello page#' + g_slide
-            // }
 
             function nextSlide(){
+
                 var g_option =  document.getElementById("optionContent")
                 var questionintro = document.getElementById("questionintro")
+
+                $('#pageno')[0].innerHTML = '' + (g_slide + 1);
 
                 if(g_slide == 2){
                     g_functionhub.submit()
@@ -57,10 +79,12 @@
 
                 if(g_slide >= 6 && questionintro != undefined){
                     loadImgTime()
+                    $('#buttontonext')[0].innerHTML = "confirm & next"
                 }
 
                 if(g_slide >= 7 && g_option != undefined){
                     answerSubmit(g_slide)
+                    $('#buttontonext')[0].innerHTML = "next"
                 }
 
                 g_slide += 1
@@ -83,14 +107,19 @@
                 }
                 else if(slideIndex == 2){
                     return getUserInfoForm();
-                }
-                else if(slideIndex >=3 && slideIndex <=5){
-                    return getTextPage('Continue...', false)
-                }
-                else if(slideIndex >= 6 && slideIndex <= 80 && slideIndex%2 == 0){
+                }else if(slideIndex == 3){
+                    return getTextPage('Scatterplot', false)
+                }else if(slideIndex == 4){
+                    return '<div id="mainimgdiv">' + 
+                       '<img class="mainimg" src="./rc1/scatterplot_intro.png"/>' +
+                       '</div>'
+                }else if(slideIndex == 5){
+                    return getTextPage('Exercise')
+                }else if(slideIndex >= 6 && slideIndex <= 80 && slideIndex%2 == 0){
                     var questionContent = questionMap[slideIndex+1]["question"]
                     return getTextPage(questionContent, true)
                 }
+                //testing
                 else if(slideIndex >= 7 && slideIndex <= 81 && slideIndex%2 == 1 ){
                     console.log("quesitonmap", questionMap)
                     var imgContent = getImgContent(slideIndex);
@@ -136,16 +165,23 @@
                 // return '<h1>Age<input id="age"></input></h1><br>' +
                 //     '<h1>Gender<input type="checkbox">Female</input>' + 
                 //     '<input type="checkbox">Male</input></h1><br>'
-                return '<form method="post" action="">' +
+                return '<div style="position:absolute;top:30%;left:10%"><form method="post" action="">' +
                             '<table border="1" bordercolor= "steerblue" cellpadding="10px" cellspacing="0">'+
-                                '<caption>Questionare</caption> '+
+                                '<caption>Info</caption> '+
                                 '<tbody>'+
                                     '<tr>'+
                                         '<td>Age: </td>'+
                                         '<td><input type = "text" name = "age"></input></td>'+
                                     '</tr>'+
-                                    '<tr><td>Gender: </td><td><input type = "radio" name = "gender" value="F" checked="checked">Woman<input type = "radio" name = "gender" value = "M">Man</td></tr>'+
-                                    '<tr><td>Science/Engineering</td><td><input type = "radio" name = "studyinterest" value = "Humanities and Social sciences" checked="checked">Humanities and Social sciences<input type = "radio" name = "studyinterest" value = "Others">Others</td></tr>'+
+                                    '<tr><td>Gender: </td><td><input type = "radio" name = "gender" value="F" checked="checked">Female<input type = "radio" name = "gender" value = "M">Male</td></tr>'+
+                                    '<tr>' + 
+                                        '<td>Academic studies</td>'+
+                                        '<td>' + 
+                                            '<input type = "radio" name = "studyinterest" value = "Science Engineering" checked="checked">Science/Engineering' + 
+                                            '<input type = "radio" name = "studyinterest" value = "Humanities and Social sciences">Humanities and Social sciences' + 
+                                            '<input type = "radio" name = "studyinterest" value = "Others">Others'+
+                                        '</td>' + 
+                                    '</tr>' +
                                     '<tr><td>Academic Level</td><td><input type = "radio" name = "academiclevel" value = "Undergraduate" checked="checked">Undergraduate<input type = "radio" name = "academiclevel" value = "Post graduate (MSc, PhD)">Post graduate (MSc, PhD)<input type = "radio" name = "academiclevel" value = "Other">Other</td></tr>'+
                                     '<tr>'+
                                         '<td>Assess your experience in Data Visualization</td>'+
@@ -159,15 +195,15 @@
                                 '</tbody>'+
                             '</table>'+
                             // '<input id = "submitbutton" type = "submit" name = "submit" value="submit" onclick >'+
-                        '</form>'
+                        '</form></div>'
             }
 
             function getTextPage(text,isQuestionIntro){
                 if(isQuestionIntro){
-                    return '<h1 id = "questionintro">' + text + '</h1>'
+                    return '<div class="centerlinediv"><h1 id = "questionintro">' + text + '</h1></div>'
                 }
                 else{
-                    return '<h1>' + text + '</h1>'
+                    return '<div class="centerlinediv"><h1>' + text + '</h1></div>'
                 }
             }
             
@@ -176,7 +212,7 @@
                 for(var i = 0; i < g_liImg.length; ++i){
                     if(imgIndex == g_liImg[i].substring(0,2))
                     {
-                        return '<div>' + 
+                        return '<div id="mainimgdiv">' + 
                        '<img class="mainimg" src="' +imgListDict[g_liImg[i]] + '" />'
                        '</div>'
                     }
@@ -184,6 +220,7 @@
 
                 console.log('<img class="mainimg" src=' + imgListDict[g_liImg[i]] + '/>');
             }
+
             function getQuestionContent(questionText){
                 return '<div id = "question">' + questionText +
                        '</div>'
@@ -196,53 +233,20 @@
             function addOptionContent(clusternumber, liColor, liColorname, isQuestion1){
                 var optionText;
                 var optionContent = ""
-
+                var p1 = "p1"
+                var p2 = "p2"
                 for (var j = 0 ; j < clusternumber; j++){
                     console.log("j", j)
                     if(isQuestion1){
-                        optionText = j+1
+                        var input = '<input type = "radio" name = "answer" ' + 
+                            ' value = "p1" checked = "checked">'+ p1+
+                         '<input type = "radio" name =  "answer" ' +
+                            ' value = "p2">'+ p2
 
-                        if(clusternumber <= 3){
-                            if(j == 0){
-                            var input = '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + optionText + ' " ' +
-                            ' checked = "checked">'
-                            }
-                            else{
-                                var input = '<input type = "radio" name = "answer" ' + 
-                                ' value = " ' + optionText + ' " >'
-                            }
-                        }
-                        else if(clusternumber == 5){
-                            // if(clusternumber >= 2){
-                            var input = '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 3 + ' " ' + 
-                            ' checked = "checked">' + 3+
-                            '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 5 + ' " >' + 5+ 
-                            '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 6 + ' " >' + 6 
-                            optionContent = input
-                            break;
-                        }
-                        else if(clusternumber == 8){
-                            var input = '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 6 + ' " ' +
-                            ' checked = "checked">'+ 6 + 
-                            '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 8 + ' " >'+ 8 +
-                            '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 9 + ' " >'+ 9 +
-                            '<input type = "radio" name = "answer" ' + 
-                            ' value = " ' + 10 + ' " >'+ 10 
-                            optionContent = input
-                            break; 
-                        }           
-                        
-                        optionContent = optionContent.concat(input + optionText);
-
-                    }
-                    else{
+                        optionContent = input
+                        break
+  
+                    }else{
                         if(j == 0){
                             var input = '<input type = "radio" name = "answer" ' + 
                             ' value = " ' + liColorname[j] + ' " ' +
@@ -334,14 +338,15 @@
 
             questionMapFunc = function(){
                 var question1 = {
-                "question": "Which point belongs to the cluster with a higher certainty, point1 or point2?",
-                "questionname": "clusternumber",
+                    "question": "Which point belongs to the cluster with a higher certainty, point1 or point2?",
+                    "questionname": "clusternumber",
                 }
 
                 var question2 = {
                     "question": "Which cluster the given point belongs to? which color?",
                     "questionname": "largeraverage"
                 }
+
 
                 var imgList = Object.keys(imgListDict)
                 // console.log("imglist",imgList)

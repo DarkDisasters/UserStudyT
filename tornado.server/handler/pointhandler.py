@@ -27,7 +27,7 @@ class TestHandler(tornado.web.RequestHandler):
 
 class IndexHandler(tornado.web.RequestHandler):
 	def get(self):
-		self.render('index.html')
+		self.render('index2.html')
 
 class GetSlide(tornado.web.RequestHandler):
 	def post(self):
@@ -50,7 +50,7 @@ class GetImgListHandler(tornado.web.RequestHandler):
         for img in imgList2:
             imgName = basename(img).split(".")[0]
             x[imgName] = img;
-        print('img list', imgList[0: 7], len(imgList))
+        print('img list', imgList2[0: 7], len(imgList2))
         print('x', x)
 
         self.set_header('Access-Control-Allow-Origin', "*")
