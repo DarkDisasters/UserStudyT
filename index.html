@@ -101,6 +101,17 @@
                 //      $('#content')[0].innerHTML = getPageContent(g_slide);
                 // })
             }
+
+            function getDBInfo(){
+                var url = "http://localhost:22030/getdbinfo"
+                var formData = new FormData()
+                lSendUrl("POST",url,formData,successGetDBInfo)
+            }
+
+            function successGetDBInfo(response, self){
+                console.log("response", response)0 
+            }
+
             function getPageContent(slideIndex){
                 if(slideIndex == 1){
                     return getTextPage('welcome :)')
@@ -108,6 +119,7 @@
                 else if(slideIndex == 2){
                     return getUserInfoForm();
                 }else if(slideIndex == 3){
+                    // getDBInfo()
                     return getTextPage('Scatterplot', false)
                 }else if(slideIndex == 4){
                     return '<div id="mainimgdiv">' + 

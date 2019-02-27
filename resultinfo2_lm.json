@@ -1,0 +1,238 @@
+{
+    "_id" : ObjectId("5c763f451dea0e8c5250f405"),
+    "usergender" : "F",
+    "userage" : "31",
+    "userexperience" : "Very good",
+    "userstudyinterest" : "Science Engineering",
+    "useracademiclevel" : "Post graduate (MSc, PhD)",
+    "answerinfo" : [ 
+        {
+            "imgname" : "7.png",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "blue",
+            "answerinterval" : "3.5"
+        }, 
+        {
+            "answerinterval" : "2.31",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p1",
+            "imgname" : "9.png"
+        }, 
+        {
+            "imgname" : "11.png",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p2",
+            "answerinterval" : "4.24"
+        }, 
+        {
+            "answerinterval" : "3.85",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "green",
+            "imgname" : "13.png"
+        }, 
+        {
+            "imgname" : "15.png",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p2",
+            "answerinterval" : "4.29"
+        }, 
+        {
+            "answerinterval" : "8.31",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "blue",
+            "imgname" : "17.png"
+        }, 
+        {
+            "imgname" : "19.png",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p1",
+            "answerinterval" : "5.16"
+        }, 
+        {
+            "answerinterval" : "2.08",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p1",
+            "imgname" : "21.png"
+        }, 
+        {
+            "imgname" : "23.png",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "orange",
+            "answerinterval" : "4.78"
+        }, 
+        {
+            "answerinterval" : "5.96",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p2",
+            "imgname" : "25.png"
+        }, 
+        {
+            "imgname" : "27.png",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p2",
+            "answerinterval" : "4.17"
+        }, 
+        {
+            "answerinterval" : "4.43",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p2",
+            "imgname" : "29.png"
+        }, 
+        {
+            "imgname" : "31.png",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "green",
+            "answerinterval" : "3.9"
+        }, 
+        {
+            "answerinterval" : "3.15",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p1",
+            "imgname" : "33.png"
+        }, 
+        {
+            "imgname" : "35.png",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p2",
+            "answerinterval" : "6.61"
+        }, 
+        {
+            "answerinterval" : "4.17",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "red",
+            "imgname" : "37.png"
+        }, 
+        {
+            "imgname" : "39.png",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p1",
+            "answerinterval" : "4.85"
+        }, 
+        {
+            "answerinterval" : "6.9399999999999995",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "orange",
+            "imgname" : "41.png"
+        }, 
+        {
+            "imgname" : "43.png",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "green",
+            "answerinterval" : "3.99"
+        }, 
+        {
+            "answerinterval" : "3.85",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "green",
+            "imgname" : "45.png"
+        }, 
+        {
+            "imgname" : "47.png",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p1",
+            "answerinterval" : "5.86"
+        }, 
+        {
+            "answerinterval" : "6.72",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "orange",
+            "imgname" : "49.png"
+        }, 
+        {
+            "imgname" : "51.png",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p2",
+            "answerinterval" : "5.28"
+        }, 
+        {
+            "answerinterval" : "3.88",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "orange",
+            "imgname" : "53.png"
+        }, 
+        {
+            "imgname" : "55.png",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "green",
+            "answerinterval" : "5.67"
+        }, 
+        {
+            "answerinterval" : "4.42",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p2",
+            "imgname" : "57.png"
+        }, 
+        {
+            "imgname" : "59.png",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p1",
+            "answerinterval" : "3.64"
+        }, 
+        {
+            "answerinterval" : "3.43",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p1",
+            "imgname" : "61.png"
+        }, 
+        {
+            "imgname" : "63.png",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "blue",
+            "answerinterval" : "5.59"
+        }, 
+        {
+            "answerinterval" : "5.41",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "blue",
+            "imgname" : "65.png"
+        }, 
+        {
+            "imgname" : "67.png",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p1",
+            "answerinterval" : "3.43"
+        }, 
+        {
+            "answerinterval" : "5.92",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "orange",
+            "imgname" : "69.png"
+        }, 
+        {
+            "imgname" : "71.png",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "blue",
+            "answerinterval" : "2.4"
+        }, 
+        {
+            "answerinterval" : "4.43",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p2",
+            "imgname" : "73.png"
+        }, 
+        {
+            "imgname" : "75.png",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "orange",
+            "answerinterval" : "3.88"
+        }, 
+        {
+            "answerinterval" : "3.11",
+            "question" : "Which point has larger certainty, p1 or p2?",
+            "answer" : "p2",
+            "imgname" : "77.png"
+        }, 
+        {
+            "imgname" : "79.png",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "green",
+            "answerinterval" : "3.46"
+        }, 
+        {
+            "answerinterval" : "6.47",
+            "question" : "Which cluster the given point belongs to?",
+            "answer" : "green",
+            "imgname" : "81.png"
+        }
+    ]
+}

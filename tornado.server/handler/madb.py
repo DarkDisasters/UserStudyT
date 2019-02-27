@@ -61,6 +61,15 @@ class MADB:
 		
 		print("save answer ok");
 
+	def getInfo(self):
+		record = self._collection.find_one({"id", userId})
+		if record != None:
+			print("exit, userid: ", userId)
+			return record
+		else:
+			print("no this userId")
+
+
   #  	def saveAInfo(self, userInfo):
 		# record = self._collection.find_one({"username": userInfo["username"]})
 		# print("record", record)

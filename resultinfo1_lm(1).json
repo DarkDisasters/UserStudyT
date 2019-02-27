@@ -1,0 +1,238 @@
+{
+    "_id" : ObjectId("5c763e321dea0e8c34b990d4"),
+    "usergender" : "F",
+    "userexperience" : "Very good",
+    "userstudyinterest" : "Science Engineering",
+    "useracademiclevel" : "Post graduate (MSc, PhD)",
+    "userage" : "31",
+    "answerinfo" : [ 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "7.png",
+            "answerinterval" : "2.86",
+            "answer" : "2"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "9.png",
+            "answerinterval" : "4.9399999999999995",
+            "answer" : "cluster2"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "11.png",
+            "answerinterval" : "2.4699999999999998",
+            "answer" : "3"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "13.png",
+            "answerinterval" : "5.5600000000000005",
+            "answer" : "cluster2"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "15.png",
+            "answerinterval" : "3.34",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "17.png",
+            "answerinterval" : "4.16",
+            "answer" : "cluster2"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "19.png",
+            "answerinterval" : "8.93",
+            "answer" : "8"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "21.png",
+            "answerinterval" : "6.48",
+            "answer" : "5"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "23.png",
+            "answerinterval" : "3.43",
+            "answer" : "3"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "25.png",
+            "answerinterval" : "4.24",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "27.png",
+            "answerinterval" : "4.34",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "29.png",
+            "answerinterval" : "3.03",
+            "answer" : "cluster2"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "31.png",
+            "answerinterval" : "7.84",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "33.png",
+            "answerinterval" : "3.22",
+            "answer" : "3"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "35.png",
+            "answerinterval" : "7.29",
+            "answer" : "5"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "37.png",
+            "answerinterval" : "6.43",
+            "answer" : "8"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "39.png",
+            "answerinterval" : "4.47",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "41.png",
+            "answerinterval" : "3.27",
+            "answer" : "cluster2"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "43.png",
+            "answerinterval" : "4.33",
+            "answer" : "cluster2"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "45.png",
+            "answerinterval" : "7.8",
+            "answer" : "8"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "47.png",
+            "answerinterval" : "2.5",
+            "answer" : "cluster2"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "49.png",
+            "answerinterval" : "3.17",
+            "answer" : "5"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "51.png",
+            "answerinterval" : "5.04",
+            "answer" : "8"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "53.png",
+            "answerinterval" : "3.61",
+            "answer" : "3"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "55.png",
+            "answerinterval" : "3.94",
+            "answer" : "cluster2"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "57.png",
+            "answerinterval" : "3.25",
+            "answer" : "5"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "59.png",
+            "answerinterval" : "3.17",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "61.png",
+            "answerinterval" : "4.88",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "63.png",
+            "answerinterval" : "6.15",
+            "answer" : "8"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "65.png",
+            "answerinterval" : "2.23",
+            "answer" : "3"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "67.png",
+            "answerinterval" : "5.77",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "69.png",
+            "answerinterval" : "2.25",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "71.png",
+            "answerinterval" : "2.49",
+            "answer" : "3"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "73.png",
+            "answerinterval" : "4.03",
+            "answer" : "5"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "75.png",
+            "answerinterval" : "3.77",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "Which cluster has larger average certainty, cluster 1 or cluster 2?",
+            "imgname" : "77.png",
+            "answerinterval" : "2.81",
+            "answer" : "cluster1"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "79.png",
+            "answerinterval" : "4.15",
+            "answer" : "5"
+        }, 
+        {
+            "question" : "How many clusters in the scatterplot?",
+            "imgname" : "81.png",
+            "answerinterval" : "5.79",
+            "answer" : "8"
+        }
+    ]
+}

@@ -59,3 +59,11 @@ class SaveAnswerInfoHandler(tornado.web.RequestHandler):
         
         self.set_header("Access-Control-Allow-Origin", "*")
         self.write({"save": "ok"})
+
+class GetDBInfoHandler(tornado.web.RequestHandler):
+    record = getDBInfo()
+    print("record in dbhandler", record)
+    self.write({"dbinfo": record})
+
+def getDBInfo():
+    record = ssDB.getInfo()

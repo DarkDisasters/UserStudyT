@@ -12,6 +12,7 @@ from handler.pointhandler import GetSlide
 from handler.pointhandler import GetImgListHandler
 from handler.dbHandler import SaveUserInfoHandler
 from handler.dbHandler import SaveAnswerInfoHandler
+from handler.dbHandler import GetDBInfoHandler
 
 url=[
 	# (r'/', IndexHandler),
@@ -20,5 +21,5 @@ url=[
     (r'/saveUserInfo', SaveUserInfoHandler),
     (r'/saveanswerinfo', SaveAnswerInfoHandler),
     (r'/getImgList', GetImgListHandler),
-
+    (r'/getdbinfo', GetDBInfoHandler),
 ]
