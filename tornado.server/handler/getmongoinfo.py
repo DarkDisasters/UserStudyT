@@ -35,7 +35,7 @@ with open(f"{DATABASE}_{TABLE}.csv", "w", newline='') as csvfileWriter:
             for field in cutFieldList:
                 for i in range(len(answerinfo)):
                     if field == answerinfo[i]["imgname"]:
-                        recordValueLst.append(answerinfo[i]["answer"])
+                        recordValueLst.append(answerinfo[i]["answerinterval"])
                         break
             try:
                 writer.writerow(recordValueLst)
